@@ -1,0 +1,505 @@
+/*
+ * Global stylesheet for the Thailand travel website
+ *
+ * This file defines a modern, responsive theme inspired by professional
+ * travel presentations. Colours and spacing are centralised via CSS
+ * variables for easy theming. A dark mode is available by toggling
+ * the `.dark` class on the `<body>` element using script.js. When
+ * designing your own pages, refer to the `.section` and `.two-col`
+ * patterns for consistent layouts.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+/* Colour palette and defaults */
+:root {
+  --primary-color: #005b9f;    /* deep blue inspired by the Thai flag */
+  --secondary-color: #e8551a;  /* warm orange reminiscent of tropical sunsets */
+  --accent-color: #008060;     /* teal for highlights */
+  --background-color: #ffffff;
+  --surface-color: #f9f9f9;
+  --text-color: #333333;
+  --text-light: #777777;
+}
+
+/* Dark mode overrides */
+body.dark {
+  --background-color: #1b1b1b;
+  --surface-color: #222222;
+  --text-color: #e0e0e0;
+  --text-light: #aaaaaa;
+}
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Navigation bar */
+/* ===== Navigation (Desktop أولاً) ===== */
+:root{
+  /* احتياط لو ما عندك متغيرات للألوان */
+  --nav-bg: var(--primary-color, #0b5fa5);
+  --nav-link: #ffffff;
+  --nav-link-active: #ff6a2a;
+}
+
+.site-nav{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: var(--nav-bg);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,.12);
+}
+
+.site-nav .logo{
+  font-weight: 800;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.site-nav .menu{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap; /* يمنع التزاحم الخبيط على الشاشات المتوسطة */
+}
+
+.site-nav .menu a{
+  color: var(--nav-link);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+.site-nav .menu a:hover,
+.site-nav .menu a:focus{
+  background: rgba(255,255,255,.12);
+}
+.site-nav .menu a[aria-current="page"],
+.site-nav .menu a.active{ /* لو تحط كلاس active */
+  background: var(--nav-link-active);
+  color: #fff;
+}
+
+/* أزرار أعلى اليمين */
+.theme-toggle,
+.menu-toggle{
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* زر المنيو مخفي على الديسكتوب */
+.menu-toggle{
+  display: none;
+  background: rgba(255,255,255,.18);
+  color: #fff;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px){
+  .site-nav{
+    position: sticky;
+  }
+
+  /* زر المنيو يظهر */
+  .menu-toggle{
+    display: inline-block;
+  }
+
+  /* نخلي القوائم عمودية ومخفية افتراضيًا */
+  .site-nav .menu{
+    position: absolute;
+    left: 0;
+    top: 60px;                 /* ارتفاع الشريط */
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: var(--nav-bg);
+    border-bottom: 1px solid rgba(0,0,0,.08);
+    display: none;             /* مخفية */
+  }
+
+  .site-nav .menu li{
+    width: 100%;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+
+  .site-nav .menu a{
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+
+  .site-nav .menu.open{
+    display: flex;
+  }
+
+ 
+  .theme-toggle{
+    background: #ff6a2a;
+    color: #fff;
+  }
+}
+
+/* Hero section */
+.hero {
+  height: 70vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem;
+  color: #ffffff;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  z-index: 1;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  max-width: 600px;
+  z-index: 1;
+  margin-bottom: 1rem;
+}
+
+.hero .btn {
+  background-color: var(--secondary-color);
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+.hero .btn:hover {
+  background-color: #c94a17;
+}
+
+/* Section styling */
+.section {
+  padding: 4rem 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+
+.section h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: var(--secondary-color);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+.section p {
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+/* Two-column layout */
+.two-col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  align-items: center;
+}
+
+.two-col img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.two-col .text {
+  font-size: 1rem;
+}
+
+/* Card grid for destinations, facts, tips */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background-color: var(--surface-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card .card-content {
+  padding: 1rem;
+}
+
+.card h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* Gallery grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.gallery-grid img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.04);
+}
+
+/* Pricing table styles */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.pricing-plan {
+  background-color: var(--surface-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pricing-plan:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.pricing-plan h3 {
+  font-size: 1.4rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.pricing-plan .price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.pricing-plan ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.pricing-plan ul li {
+  margin-bottom: 0.3rem;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.pricing-plan ul li::before {
+  content: '\2022';
+  position: absolute;
+  left: 0;
+  color: var(--secondary-color);
+}
+
+.pricing-plan .btn {
+  margin-top: auto;
+}
+
+/* Footer */
+footer {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+footer a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  nav ul {
+    gap: 0.5rem;
+  }
+}
+/* ===== About Us ===== */
+.about {
+  padding: 64px 16px;
+  background: var(--panel, #f7f7fb);
+}
+.about__wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.about__intro h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  margin: 0 0 8px;
+  background: linear-gradient(90deg, #0b5ea8, #ff7a00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.about__intro p { margin: 0 0 16px; line-height: 1.6; color: var(--text, #333); }
+
+.btn-about {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  background: #ff9f1c;
+  color: #102a43;
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+.btn-about:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+.about__details {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.about__card {
+  background: var(--card, #fff);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.07);
+}
+.about__card h3 { margin: 0 0 8px; color: #0b5ea8; }
+.about__card a { color: #0b5ea8; text-decoration: underline; }
+.hours { list-style: none; padding: 0; margin: 0; }
+.hours li { margin: 4px 0; }
+
+/* 2–3 columns on wider screens */
+@media (min-width: 720px) {
+  .about__details { grid-template-columns: repeat(3,1fr); }
+}
+.about{
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+.about__card{
+  background: var(--surface-color);
+  color: var(--text-color);
+  box-shadow: 0 12px 30px rgba(0,0,0,.08);
+}
+
+.about__card h3{ color: var(--primary-color); }
+.about a{ color: var(--primary-color); }
+
+.btn-about{
+  background: var(--secondary-color);
+  color: #fff;
+}
+
+.about__intro h2{
+  background: none;
+  color: var(--text-color);
+}
+body.dark .about .about__intro p {
+  color: #fff;
+  opacity: 1;
+}
